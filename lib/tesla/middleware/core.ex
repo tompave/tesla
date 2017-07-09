@@ -47,15 +47,8 @@ defmodule Tesla.Middleware.BaseUrl do
     end
   end
 
-  defp join(base, url) do
-    case {String.last(to_string(base)), url} do
-      {nil, url}          -> url
-      {"/", "/" <> rest}  -> base <> rest
-      {"/", rest}         -> base <> rest
-      {_,   "/" <> rest}  -> base <> "/" <> rest
-      {_,   rest}         -> base <> "/" <> rest
-    end
-  end
+  defp join(nil, url),  do: url
+  defp join(base, url), do: Path.join(base, url)
 end
 
 
